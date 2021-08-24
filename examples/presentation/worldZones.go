@@ -12,7 +12,7 @@ type WorldZones struct {
 
 func (w *WorldZones) Create() {
 
-	var cell int32 = 16
+	var cell float32 = 16
 
 	w.Space = resolv.NewSpace()
 
@@ -97,18 +97,18 @@ func (w *WorldZones) Update() {
 
 	solids := w.Space.FilterByTags("solid")
 
-	if res := solids.Resolve(player.Rect, int32(player.SpeedX), 0); res.Colliding() {
+	if res := solids.Resolve(player.Rect, float32(player.SpeedX), 0); res.Colliding() {
 		player.Rect.X += res.ResolveX
 		player.SpeedX = 0
 	} else {
-		player.Rect.X += int32(player.SpeedX)
+		player.Rect.X += float32(player.SpeedX)
 	}
 
-	if res := solids.Resolve(player.Rect, 0, int32(player.SpeedY)); res.Colliding() {
+	if res := solids.Resolve(player.Rect, 0, float32(player.SpeedY)); res.Colliding() {
 		player.Rect.Y += res.ResolveY
 		player.SpeedY = 0
 	} else {
-		player.Rect.Y += int32(player.SpeedY)
+		player.Rect.Y += float32(player.SpeedY)
 	}
 
 }
@@ -141,11 +141,11 @@ func (w *WorldZones) Draw() {
 
 		case *resolv.Rectangle:
 
-			rl.DrawRectangleLines(shape.X, shape.Y, shape.W, shape.H, drawColor)
+			rl.DrawRectangleLines(int32(shape.X), int32(shape.Y), int32(shape.W), int32(shape.H), drawColor)
 
 		case *resolv.Circle:
 
-			rl.DrawCircleLines(shape.X, shape.Y, float32(shape.Radius), drawColor)
+			rl.DrawCircleLines(int32(shape.X), int32(shape.Y), float32(shape.Radius), drawColor)
 
 		}
 

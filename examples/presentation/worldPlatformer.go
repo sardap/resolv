@@ -35,7 +35,7 @@ func (w *WorldPlatformer) Create() {
 	w.Space.Add(resolv.NewRectangle(0, 0, screenWidth, 16))
 	w.Space.Add(resolv.NewRectangle(0, screenHeight-16, screenWidth, 16))
 
-	c := int32(16)
+	c := float32(16)
 
 	w.Space.Add(resolv.NewRectangle(c*4, screenHeight-c*4, c*3, c))
 
@@ -85,8 +85,8 @@ func (w *WorldPlatformer) Update() {
 
 	w.FloatingPlatformY += math.Sin(float64(sdl.GetTicks()/1000)) * .5
 
-	w.FloatingPlatform.Y = int32(w.FloatingPlatformY)
-	w.FloatingPlatform.Y2 = int32(w.FloatingPlatformY) - 16
+	w.FloatingPlatform.Y = float32(w.FloatingPlatformY)
+	w.FloatingPlatform.Y2 = float32(w.FloatingPlatformY) - 16
 
 	if w.Player.SpeedX > friction {
 		w.Player.SpeedX -= friction
@@ -122,8 +122,8 @@ func (w *WorldPlatformer) Update() {
 		w.Player.SpeedY = -8
 	}
 
-	x := int32(w.Player.SpeedX)
-	y := int32(w.Player.SpeedY)
+	x := float32(w.Player.SpeedX)
+	y := float32(w.Player.SpeedY)
 
 	solids := w.Space.FilterByTags("solid")
 	ramps := w.Space.FilterByTags("ramp")
@@ -175,11 +175,11 @@ func (w *WorldPlatformer) Draw() {
 
 			if rect == w.Player.Rect {
 				drawColor = rl.Green
-				rl.DrawLine(rect.X+5, rect.Y+3, rect.X+5, rect.Y+8, drawColor)
-				rl.DrawLine(rect.X+8, rect.Y+3, rect.X+8, rect.Y+8, drawColor)
+				rl.DrawLine(int32(rect.X+5), int32(rect.Y+3), int32(rect.X+5), int32(rect.Y+8), drawColor)
+				rl.DrawLine(int32(rect.X+8), int32(rect.Y+3), int32(rect.X+8), int32(rect.Y+8), drawColor)
 			}
 
-			rl.DrawRectangleLines(rect.X, rect.Y, rect.W, rect.H, drawColor)
+			rl.DrawRectangleLines(int32(rect.X), int32(rect.Y), int32(rect.W), int32(rect.H), drawColor)
 
 		}
 
@@ -187,7 +187,7 @@ func (w *WorldPlatformer) Draw() {
 
 		if ok {
 
-			rl.DrawLine(line.X, line.Y, line.X2, line.Y2, rl.Blue)
+			rl.DrawLine(int32(line.X), int32(line.Y), int32(line.X2), int32(line.Y2), rl.Blue)
 
 		}
 

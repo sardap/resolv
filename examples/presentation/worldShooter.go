@@ -31,7 +31,7 @@ func (w *WorldShooter) Update() {
 
 	// Player
 
-	dx, dy := int32(0), int32(0)
+	dx, dy := float32(0), float32(0)
 
 	if rl.IsKeyDown(rl.KeyLeft) {
 		dx -= 2
@@ -70,7 +70,7 @@ func (w *WorldShooter) Update() {
 	if w.SpawnTimer >= 4 {
 		w.SpawnTimer = 0
 		// Spawn a rock
-		r := rand.Int31n(8)
+		r := float32(rand.Int31n(8))
 		rock := resolv.NewSpace()
 		rock.Add(
 			resolv.NewLine(0, 0, 4*r, -2*r),
@@ -82,7 +82,7 @@ func (w *WorldShooter) Update() {
 		rock.Move(screenWidth+16, 0)
 		// rock := resolv.NewRectangle(screenWidth, 0, 8+rand.Int31n(16), 8+rand.Int31n(16))
 		rock.AddTags("rock")
-		rock.Move(0, rand.Int31n(screenHeight-16))
+		rock.Move(0, float32(rand.Int31n(screenHeight-16)))
 		w.Space.Add(rock)
 	}
 
@@ -144,9 +144,9 @@ func (w *WorldShooter) drawShape(shape resolv.Shape) {
 	switch b := shape.(type) {
 
 	case *resolv.Rectangle:
-		rl.DrawRectangleLines(b.X, b.Y, b.W, b.H, drawColor)
+		rl.DrawRectangleLines(int32(b.X), int32(b.Y), int32(b.W), int32(b.H), drawColor)
 	case *resolv.Line:
-		rl.DrawLine(b.X, b.Y, b.X2, b.Y2, drawColor)
+		rl.DrawLine(int32(b.X), int32(b.Y), int32(b.X2), int32(b.Y2), drawColor)
 	case *resolv.Space:
 		for _, s := range *b {
 			w.drawShape(s)

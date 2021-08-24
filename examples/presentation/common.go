@@ -23,7 +23,7 @@ type Square struct {
 
 func NewSquare(space *resolv.Space) *Square {
 
-	square := &Square{Rect: resolv.NewRectangle(cell*2+rand.Int31n(screenWidth-cell*4), cell*2+rand.Int31n(screenHeight-cell*4), cell, cell),
+	square := &Square{Rect: resolv.NewRectangle(cell*2+float32(rand.Int31n(screenWidth-cell*4)), cell*2+float32(rand.Int31n(screenHeight-cell*4)), cell, cell),
 		SpeedX: (0.5 - rand.Float32()) * 8,
 		SpeedY: (0.5 - rand.Float32()) * 8}
 
@@ -32,8 +32,8 @@ func NewSquare(space *resolv.Space) *Square {
 
 		if space.IsColliding(square.Rect) {
 
-			square.Rect.X = cell*2 + rand.Int31n(screenWidth-cell*4)
-			square.Rect.Y = cell*2 + rand.Int31n(screenHeight-cell*4)
+			square.Rect.X = cell*2 + float32(rand.Int31n(screenWidth-cell*4))
+			square.Rect.Y = cell*2 + float32(rand.Int31n(screenHeight-cell*4))
 
 		}
 
@@ -49,14 +49,14 @@ func NewSquare(space *resolv.Space) *Square {
 
 }
 
-func DrawText(x, y int32, textLines ...string) {
+func DrawText(x, y float32, textLines ...string) {
 
 	for i, line := range textLines {
 
 		// length := rl.MeasureText(line, 8)
-		// rl.DrawRectangle(x-2, y+(int32(i)*10), length+2, 8, rl.Black)
-		rl.DrawText(line, x, y+(int32(i)*10), 8, rl.Blue)
-		rl.DrawText(line, x, y-1+(int32(i)*10), 8, rl.White)
+		// rl.DrawRectangle(x-2, y+(float32(i)*10), length+2, 8, rl.Black)
+		rl.DrawText(line, int32(x), int32(y)+int32(i*10), 8, rl.Blue)
+		rl.DrawText(line, int32(x), int32(y)-1+int32(i*10), 8, rl.White)
 
 	}
 

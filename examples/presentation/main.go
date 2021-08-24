@@ -7,9 +7,11 @@ import (
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
-var screenWidth int32 = 320
-var screenHeight int32 = 240
-var cell int32 = 4
+const (
+	screenWidth  = 320
+	screenHeight = 240
+	cell         = 4
+)
 
 var drawHelpText = true
 

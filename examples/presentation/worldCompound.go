@@ -38,8 +38,8 @@ func (w *WorldCompound) Create() {
 func (w *WorldCompound) Update() {
 
 	player := w.Player
-	moveSpd := int32(1)
-	dx, dy := int32(0), int32(0)
+	moveSpd := float32(1)
+	dx, dy := float32(0), float32(0)
 
 	if rl.IsKeyDown(rl.KeyRight) {
 		dx = moveSpd
@@ -105,7 +105,7 @@ func (w *WorldCompound) DrawObject(other resolv.Shape) {
 
 		if !shape.HasTags("square") {
 
-			rl.DrawRectangleLines(shape.X, shape.Y, shape.W, shape.H, rl.LightGray)
+			rl.DrawRectangleLines(int32(shape.X), int32(shape.Y), int32(shape.W), int32(shape.H), rl.LightGray)
 
 		} else {
 
@@ -117,7 +117,7 @@ func (w *WorldCompound) DrawObject(other resolv.Shape) {
 				color = rl.Color{0, 255, 0, 255}
 			}
 
-			rl.DrawRectangleLines(squareData.Rect.X, squareData.Rect.Y, squareData.Rect.W, squareData.Rect.H, color)
+			rl.DrawRectangleLines(int32(squareData.Rect.X), int32(squareData.Rect.Y), int32(squareData.Rect.W), int32(squareData.Rect.H), color)
 
 		}
 

@@ -31,9 +31,9 @@ func (w *WorldBounce) Create() {
 	w.Space.Add(resolv.NewRectangle(cell, screenHeight-cell, screenWidth-(cell*2), cell))
 
 	for i := 0; i < 20; i++ {
-		x := rand.Int31n(screenCellWidth - 2)
-		y := rand.Int31n(screenCellHeight - 2)
-		w.Space.Add(resolv.NewRectangle(cell+(x*cell), cell+(y*cell), cell*(1+rand.Int31n(16)), cell*(1+rand.Int31n(16))))
+		x := float32(rand.Intn(screenCellWidth - 2))
+		y := float32(rand.Intn(screenCellHeight - 2))
+		w.Space.Add(resolv.NewRectangle(cell+(x*cell), cell+(y*cell), cell*float32(1+rand.Intn(16)), cell*float32(1+rand.Intn(16))))
 	}
 
 	// Add the "solid" tag to all Shapes within the Space
@@ -67,15 +67,15 @@ func (w *WorldBounce) Update() {
 
 		// The additional teleporting check means that it won't resolve in a way that would cause it to move inordinately far (i.e.
 		// teleporting). See the docs in resolv.go to see exactly what Teleporting is defined as.
-		if res := solids.Resolve(square.Rect, int32(square.SpeedX), 0); res.Colliding() && !res.Teleporting {
+		if res := solids.Resolve(square.Rect, float32(square.SpeedX), 0); res.Colliding() && !res.Teleporting {
 			square.Rect.X += res.ResolveX
 			square.SpeedX *= -1
 			square.BounceFrame = 1
 		} else {
-			square.Rect.X += int32(square.SpeedX)
+			square.Rect.X += float32(square.SpeedX)
 		}
 
-		if res := solids.Resolve(square.Rect, 0, int32(square.SpeedY)); res.Colliding() && !res.Teleporting {
+		if res := solids.Resolve(square.Rect, 0, float32(square.SpeedY)); res.Colliding() && !res.Teleporting {
 			square.Rect.Y += res.ResolveY
 			square.SpeedY *= -1
 			// This makes the squares able to rebound higher if they get a boost from another square below~
@@ -84,7 +84,7 @@ func (w *WorldBounce) Update() {
 			}
 			square.BounceFrame = 1
 		} else {
-			square.Rect.Y += int32(square.SpeedY)
+			square.Rect.Y += float32(square.SpeedY)
 		}
 
 	}
@@ -140,7 +140,7 @@ func (w *WorldBounce) Draw() {
 
 		if !rect.HasTags("square") {
 
-			rl.DrawRectangleLines(rect.X, rect.Y, rect.W, rect.H, rl.LightGray)
+			rl.DrawRectangleLines(int32(rect.X), int32(rect.Y), int32(rect.W), int32(rect.H), rl.LightGray)
 
 		} else {
 
@@ -154,7 +154,7 @@ func (w *WorldBounce) Draw() {
 				color = rl.Color{60, g, 255, 255}
 			}
 
-			rl.DrawRectangleLines(squareData.Rect.X, squareData.Rect.Y, squareData.Rect.W, squareData.Rect.H, color)
+			rl.DrawRectangleLines(int32(squareData.Rect.X), int32(squareData.Rect.Y), int32(squareData.Rect.W), int32(squareData.Rect.H), color)
 
 		}
 
