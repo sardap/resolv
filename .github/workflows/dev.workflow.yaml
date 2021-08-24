@@ -1,0 +1,19 @@
+name: Run tests
+on:
+  push:
+    branches:
+      - '*'         # matches every branch that doesn't contain a '/'
+      - '*/*'       # matches every branch containing a single '/'
+      - '**'        # matches every branch
+      - '!master'   # excludes master
+
+jobs:
+  build:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: run
+        uses: cedrickring/golang-action/go1.16@1.7.0
+        env:
+          PROJECT_PATH: "."
