@@ -125,20 +125,14 @@ func (sp *Space) Filter(filterFunc func(Shape) bool) *Space {
 // FilterByTags filters a Space out, creating a new Space that has just the Shapes that have all of the specified tags.
 func (sp *Space) FilterByTags(tags ...string) *Space {
 	return sp.Filter(func(s Shape) bool {
-		if s.HasTags(tags...) {
-			return true
-		}
-		return false
+		return s.HasTags(tags...)
 	})
 }
 
 // FilterOutByTags filters a Space out, creating a new Space that has just the Shapes that don't have all of the specified tags.
 func (sp *Space) FilterOutByTags(tags ...string) *Space {
 	return sp.Filter(func(s Shape) bool {
-		if s.HasTags(tags...) {
-			return false
-		}
-		return true
+		return !s.HasTags(tags...)
 	})
 }
 
