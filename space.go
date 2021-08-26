@@ -92,29 +92,26 @@ func (sp *Space) GetCollidingShapes(shape Shape) *Space {
 // that returns true is the Collision that gets returned.
 func (sp *Space) Resolve(checkingShape Shape, deltaX, deltaY float64) Collision {
 
-	res := Collision{}
-
 	for _, other := range *sp {
 
 		if other != checkingShape && checkingShape.WouldBeColliding(other, float64(deltaX), float64(deltaY)) {
-			res = Resolve(checkingShape, other, deltaX, deltaY)
-			if res.Colliding() {
-				break
+			if res := Resolve(checkingShape, other, deltaX, deltaY); res.Colliding() {
+				return res
 			}
 		}
 
 	}
 
-	return res
+	return Collision{}
 
 }
 
-// Colliding returns other shapes colliding with shape
-func (sp *Space) Colliding(checkingShape Shape) *Collision {
+// Collision returns other shape colliding with given shape
+func (sp *Space) Collision(checkingShape Shape) *Collision {
 
 	for _, other := range *sp {
 
-		if other != checkingShape && checkingShape.WouldBeColliding(other, 0, 0) {
+		if other != checkingShape && checkingShape.IsColliding(other) {
 			return &Collision{
 				ShapeA: checkingShape,
 				ShapeB: other,
