@@ -90,13 +90,13 @@ func (sp *Space) GetCollidingShapes(shape Shape) *Space {
 
 // Resolve runs Resolve() using the checking Shape, checking against all other Shapes in the Space. The first Collision
 // that returns true is the Collision that gets returned.
-func (sp *Space) Resolve(checkingShape Shape, deltaX, deltaY float32) Collision {
+func (sp *Space) Resolve(checkingShape Shape, deltaX, deltaY float64) Collision {
 
 	res := Collision{}
 
 	for _, other := range *sp {
 
-		if other != checkingShape && checkingShape.WouldBeColliding(other, float32(deltaX), float32(deltaY)) {
+		if other != checkingShape && checkingShape.WouldBeColliding(other, float64(deltaX), float64(deltaY)) {
 			res = Resolve(checkingShape, other, deltaX, deltaY)
 			if res.Colliding() {
 				break
@@ -165,7 +165,7 @@ that return singular values look at the first shape as a "root" of sorts.
 
 // WouldBeColliding returns true if any of the Shapes within the Space would be colliding should they move along the delta
 // X and Y values provided (dx and dy).
-func (sp *Space) WouldBeColliding(other Shape, dx, dy float32) bool {
+func (sp *Space) WouldBeColliding(other Shape, dx, dy float64) bool {
 
 	for _, shape := range *sp {
 
@@ -247,7 +247,7 @@ func (sp *Space) SetData(data interface{}) {
 
 // GetXY returns the X and Y position of the first Shape in the Space. If there aren't any Shapes within the Space, it
 // returns 0, 0.
-func (sp *Space) GetXY() (float32, float32) {
+func (sp *Space) GetXY() (float64, float64) {
 
 	if len(*sp) > 0 {
 		return (*sp)[0].GetXY()
@@ -259,7 +259,7 @@ func (sp *Space) GetXY() (float32, float32) {
 // SetXY sets the X and Y position of all Shapes within the Space to the position provided using the first Shape's position as
 // reference. Basically, it moves the first Shape within the Space to the target location and then moves all other Shapes
 // by the same delta movement.
-func (sp *Space) SetXY(x, y float32) {
+func (sp *Space) SetXY(x, y float64) {
 
 	if len(*sp) > 0 {
 
@@ -276,7 +276,7 @@ func (sp *Space) SetXY(x, y float32) {
 }
 
 // Move moves all Shapes in the Space by the displacement provided.
-func (sp *Space) Move(dx, dy float32) {
+func (sp *Space) Move(dx, dy float64) {
 	for _, shape := range *sp {
 		shape.Move(dx, dy)
 	}

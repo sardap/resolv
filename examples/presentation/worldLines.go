@@ -28,8 +28,8 @@ func (w *WorldLines) Create() {
 	rect := resolv.NewRectangle(160, 16, 32, 32)
 	w.Space.Add(rect)
 
-	var lx, ly float32 = 160, 160
-	var ls float32 = 16
+	var lx, ly float64 = 160, 160
+	var ls float64 = 16
 
 	line := resolv.NewLine(lx, ly, lx+ls, ly)
 	w.Space.Add(line)
@@ -53,11 +53,11 @@ func (w *WorldLines) Update() {
 
 	winW, winH := rl.GetScreenWidth(), rl.GetScreenHeight()
 
-	ratioX := float32(screenWidth) / float32(winW)
-	ratioY := float32(screenHeight) / float32(winH)
+	ratioX := float64(screenWidth) / float64(winW)
+	ratioY := float64(screenHeight) / float64(winH)
 
-	mx := float32(float32(x) * ratioX)
-	my := float32(float32(y) * ratioY)
+	mx := float64(float64(x) * ratioX)
+	my := float64(float64(y) * ratioY)
 
 	if rl.IsMouseButtonPressed(rl.MouseLeftButton) {
 		w.TargetLine.X = mx

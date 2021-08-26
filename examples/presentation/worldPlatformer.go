@@ -35,7 +35,7 @@ func (w *WorldPlatformer) Create() {
 	w.Space.Add(resolv.NewRectangle(0, 0, screenWidth, 16))
 	w.Space.Add(resolv.NewRectangle(0, screenHeight-16, screenWidth, 16))
 
-	c := float32(16)
+	c := float64(16)
 
 	w.Space.Add(resolv.NewRectangle(c*4, screenHeight-c*4, c*3, c))
 
@@ -78,15 +78,15 @@ func (w *WorldPlatformer) Update() {
 
 	w.Player.SpeedY += 0.5
 
-	friction := float32(0.5)
+	friction := float64(0.5)
 	accel := 0.5 + friction
 
-	maxSpd := float32(3)
+	maxSpd := float64(3)
 
 	w.FloatingPlatformY += math.Sin(float64(sdl.GetTicks()/1000)) * .5
 
-	w.FloatingPlatform.Y = float32(w.FloatingPlatformY)
-	w.FloatingPlatform.Y2 = float32(w.FloatingPlatformY) - 16
+	w.FloatingPlatform.Y = float64(w.FloatingPlatformY)
+	w.FloatingPlatform.Y2 = float64(w.FloatingPlatformY) - 16
 
 	if w.Player.SpeedX > friction {
 		w.Player.SpeedX -= friction
@@ -122,8 +122,8 @@ func (w *WorldPlatformer) Update() {
 		w.Player.SpeedY = -8
 	}
 
-	x := float32(w.Player.SpeedX)
-	y := float32(w.Player.SpeedY)
+	x := float64(w.Player.SpeedX)
+	y := float64(w.Player.SpeedY)
 
 	solids := w.Space.FilterByTags("solid")
 	ramps := w.Space.FilterByTags("ramp")

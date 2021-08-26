@@ -31,9 +31,9 @@ func (w *WorldBounce) Create() {
 	w.Space.Add(resolv.NewRectangle(cell, screenHeight-cell, screenWidth-(cell*2), cell))
 
 	for i := 0; i < 20; i++ {
-		x := float32(rand.Intn(screenCellWidth - 2))
-		y := float32(rand.Intn(screenCellHeight - 2))
-		w.Space.Add(resolv.NewRectangle(cell+(x*cell), cell+(y*cell), cell*float32(1+rand.Intn(16)), cell*float32(1+rand.Intn(16))))
+		x := float64(rand.Intn(screenCellWidth - 2))
+		y := float64(rand.Intn(screenCellHeight - 2))
+		w.Space.Add(resolv.NewRectangle(cell+(x*cell), cell+(y*cell), cell*float64(1+rand.Intn(16)), cell*float64(1+rand.Intn(16))))
 	}
 
 	// Add the "solid" tag to all Shapes within the Space
@@ -53,29 +53,29 @@ func (w *WorldBounce) Update() {
 		square.SpeedY += 0.25
 		square.BounceFrame *= .9
 
-		if square.SpeedY > float32(cell) {
-			square.SpeedY = float32(cell)
-		} else if square.SpeedY < -float32(cell) {
-			square.SpeedY = -float32(cell)
+		if square.SpeedY > float64(cell) {
+			square.SpeedY = float64(cell)
+		} else if square.SpeedY < -float64(cell) {
+			square.SpeedY = -float64(cell)
 		}
 
-		if square.SpeedX > float32(cell) {
-			square.SpeedX = float32(cell)
-		} else if square.SpeedX < -float32(cell) {
-			square.SpeedX = -float32(cell)
+		if square.SpeedX > float64(cell) {
+			square.SpeedX = float64(cell)
+		} else if square.SpeedX < -float64(cell) {
+			square.SpeedX = -float64(cell)
 		}
 
 		// The additional teleporting check means that it won't resolve in a way that would cause it to move inordinately far (i.e.
 		// teleporting). See the docs in resolv.go to see exactly what Teleporting is defined as.
-		if res := solids.Resolve(square.Rect, float32(square.SpeedX), 0); res.Colliding() && !res.Teleporting {
+		if res := solids.Resolve(square.Rect, float64(square.SpeedX), 0); res.Colliding() && !res.Teleporting {
 			square.Rect.X += res.ResolveX
 			square.SpeedX *= -1
 			square.BounceFrame = 1
 		} else {
-			square.Rect.X += float32(square.SpeedX)
+			square.Rect.X += float64(square.SpeedX)
 		}
 
-		if res := solids.Resolve(square.Rect, 0, float32(square.SpeedY)); res.Colliding() && !res.Teleporting {
+		if res := solids.Resolve(square.Rect, 0, float64(square.SpeedY)); res.Colliding() && !res.Teleporting {
 			square.Rect.Y += res.ResolveY
 			square.SpeedY *= -1
 			// This makes the squares able to rebound higher if they get a boost from another square below~
@@ -84,7 +84,7 @@ func (w *WorldBounce) Update() {
 			}
 			square.BounceFrame = 1
 		} else {
-			square.Rect.Y += float32(square.SpeedY)
+			square.Rect.Y += float64(square.SpeedY)
 		}
 
 	}

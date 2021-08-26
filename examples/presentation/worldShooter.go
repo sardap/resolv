@@ -31,7 +31,7 @@ func (w *WorldShooter) Update() {
 
 	// Player
 
-	dx, dy := float32(0), float32(0)
+	dx, dy := float64(0), float64(0)
 
 	if rl.IsKeyDown(rl.KeyLeft) {
 		dx -= 2
@@ -70,7 +70,7 @@ func (w *WorldShooter) Update() {
 	if w.SpawnTimer >= 4 {
 		w.SpawnTimer = 0
 		// Spawn a rock
-		r := float32(rand.Int31n(8))
+		r := float64(rand.Int31n(8))
 		rock := resolv.NewSpace()
 		rock.Add(
 			resolv.NewLine(0, 0, 4*r, -2*r),
@@ -82,7 +82,7 @@ func (w *WorldShooter) Update() {
 		rock.Move(screenWidth+16, 0)
 		// rock := resolv.NewRectangle(screenWidth, 0, 8+rand.Int31n(16), 8+rand.Int31n(16))
 		rock.AddTags("rock")
-		rock.Move(0, float32(rand.Int31n(screenHeight-16)))
+		rock.Move(0, float64(rand.Int31n(screenHeight-16)))
 		w.Space.Add(rock)
 	}
 

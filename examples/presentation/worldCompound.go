@@ -38,8 +38,8 @@ func (w *WorldCompound) Create() {
 func (w *WorldCompound) Update() {
 
 	player := w.Player
-	moveSpd := float32(1)
-	dx, dy := float32(0), float32(0)
+	moveSpd := float64(1)
+	dx, dy := float64(0), float64(0)
 
 	if rl.IsKeyDown(rl.KeyRight) {
 		dx = moveSpd

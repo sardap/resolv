@@ -12,7 +12,7 @@ type WorldZones struct {
 
 func (w *WorldZones) Create() {
 
-	var cell float32 = 16
+	var cell float64 = 16
 
 	w.Space = resolv.NewSpace()
 
@@ -44,9 +44,9 @@ func (w *WorldZones) Create() {
 
 func (w *WorldZones) Update() {
 
-	var friction float32 = 0.5
+	var friction float64 = 0.5
 	accel := 0.5 + friction
-	var maxSpd float32 = 3
+	var maxSpd float64 = 3
 
 	// Note that I'm being lazy and using the squares list / Bouncer struct from World1.go to store player data,
 	// rather than making a new set of data here for World2.
@@ -97,18 +97,18 @@ func (w *WorldZones) Update() {
 
 	solids := w.Space.FilterByTags("solid")
 
-	if res := solids.Resolve(player.Rect, float32(player.SpeedX), 0); res.Colliding() {
+	if res := solids.Resolve(player.Rect, float64(player.SpeedX), 0); res.Colliding() {
 		player.Rect.X += res.ResolveX
 		player.SpeedX = 0
 	} else {
-		player.Rect.X += float32(player.SpeedX)
+		player.Rect.X += float64(player.SpeedX)
 	}
 
-	if res := solids.Resolve(player.Rect, 0, float32(player.SpeedY)); res.Colliding() {
+	if res := solids.Resolve(player.Rect, 0, float64(player.SpeedY)); res.Colliding() {
 		player.Rect.Y += res.ResolveY
 		player.SpeedY = 0
 	} else {
-		player.Rect.Y += float32(player.SpeedY)
+		player.Rect.Y += float64(player.SpeedY)
 	}
 
 }

@@ -14,7 +14,7 @@ func TestResolve(t *testing.T) {
 		name     string
 		shapes   []resolv.Shape
 		resolves []struct {
-			x, y      float32
+			x, y      float64
 			colliding bool
 			note      string
 		}
@@ -28,7 +28,7 @@ func TestResolve(t *testing.T) {
 			},
 			// Note this always moves the first shape
 			resolves: []struct {
-				x, y      float32
+				x, y      float64
 				colliding bool
 				note      string
 			}{
@@ -49,9 +49,8 @@ func TestResolve(t *testing.T) {
 				resolv.NewLine(10, 0, 10, 5),
 				resolv.NewLine(0, 10, 5, 10),
 			},
-			// Note this always moves the first shape
 			resolves: []struct {
-				x, y      float32
+				x, y      float64
 				colliding bool
 				note      string
 			}{
@@ -67,9 +66,8 @@ func TestResolve(t *testing.T) {
 				resolv.NewRectangle(0, 0, 5, 5),
 				resolv.NewCircle(15, 15, 5),
 			},
-			// Note this always moves the first shape
 			resolves: []struct {
-				x, y      float32
+				x, y      float64
 				colliding bool
 				note      string
 			}{
@@ -91,9 +89,8 @@ func TestResolve(t *testing.T) {
 					return
 				}(),
 			},
-			// Note this always moves the first shape
 			resolves: []struct {
-				x, y      float32
+				x, y      float64
 				colliding bool
 				note      string
 			}{
