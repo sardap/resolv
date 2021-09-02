@@ -190,11 +190,6 @@ func TestSpaceAdd(t *testing.T) {
 func TestCollidingShapes(t *testing.T) {
 	t.Parallel()
 
-	assert.Panics(t, func() {
-		spaceA := resolv.NewSpace()
-		spaceA.Add(spaceA)
-	})
-
 	rectB := resolv.NewRectangle(11, 0, 10, 10)
 	rectC := resolv.NewRectangle(0, 11, 10, 10)
 
@@ -206,4 +201,17 @@ func TestCollidingShapes(t *testing.T) {
 
 	target.SetXY(2, 2)
 	assert.Equal(t, 2, spaceA.GetCollidingShapes(target).Length())
+}
+
+func TestCollisions(t *testing.T) {
+	t.Parallel()
+
+	rectA := resolv.NewRectangle(0, 11, 10, 10)
+	rectB := resolv.NewRectangle(0, 11, 10, 10)
+	rectC := resolv.NewRectangle(0, 11, 10, 10)
+
+	space := resolv.NewSpace()
+	space.Add(rectA, rectB, rectC)
+
+	assert.Equal(t, 2, len(space.Collisions(rectA)))
 }

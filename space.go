@@ -106,22 +106,19 @@ func (sp *Space) Resolve(checkingShape Shape, deltaX, deltaY float64) Collision 
 
 }
 
-// Collision returns other shape colliding with given shape
-func (sp *Space) Collision(checkingShape Shape) *Collision {
+// Collisions returns other shape colliding with given shape
+func (sp *Space) Collisions(checkingShape Shape) []Shape {
+	var result []Shape
 
 	for _, other := range *sp {
 
 		if other != checkingShape && checkingShape.IsColliding(other) {
-			return &Collision{
-				ShapeA: checkingShape,
-				ShapeB: other,
-			}
+			result = append(result, other)
 		}
 
 	}
 
-	return nil
-
+	return result
 }
 
 // Filter filters out a Space, returning a new Space comprised of Shapes that return true for the boolean function you provide.
