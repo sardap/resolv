@@ -116,11 +116,17 @@ func TestResolve(t *testing.T) {
 	}
 }
 
-func createTestShapeWithTags(s resolv.Shape, tags ...string) resolv.Shape {
+func createTestShapeWithTags(s resolv.Shape, tags ...int) resolv.Shape {
 	s.AddTags(tags...)
 
 	return s
 }
+
+const (
+	tagPlayer = 1
+	tagGround = 2
+	tagToken  = 3
+)
 
 func TestSpaceFilterTags(t *testing.T) {
 	t.Parallel()
@@ -128,24 +134,24 @@ func TestSpaceFilterTags(t *testing.T) {
 	testCases := []struct {
 		shapes []resolv.Shape
 		tests  []struct {
-			token string
+			token int
 			count int
 		}
 	}{
 		{
 			shapes: []resolv.Shape{
-				createTestShapeWithTags(resolv.NewRectangle(0, 0, 10, 10), "player"),
-				createTestShapeWithTags(resolv.NewRectangle(0, 10, 10000, 10), "ground"),
-				createTestShapeWithTags(resolv.NewLine(100, 0, 100, 10), "ground"),
-				createTestShapeWithTags(resolv.NewCircle(1000, 0, 5), "token"),
+				createTestShapeWithTags(resolv.NewRectangle(0, 0, 10, 10), tagPlayer),
+				createTestShapeWithTags(resolv.NewRectangle(0, 10, 10000, 10), tagGround),
+				createTestShapeWithTags(resolv.NewLine(100, 0, 100, 10), tagGround),
+				createTestShapeWithTags(resolv.NewCircle(1000, 0, 5), tagToken),
 			},
 			tests: []struct {
-				token string
+				token int
 				count int
 			}{
-				{"player", 1},
-				{"ground", 2},
-				{"token", 1},
+				{tagPlayer, 1},
+				{tagGround, 2},
+				{tagToken, 1},
 			},
 		},
 	}

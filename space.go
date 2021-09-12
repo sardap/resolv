@@ -135,14 +135,14 @@ func (sp *Space) Filter(filterFunc func(Shape) bool) *Space {
 }
 
 // FilterByTags filters a Space out, creating a new Space that has just the Shapes that have all of the specified tags.
-func (sp *Space) FilterByTags(tags ...string) *Space {
+func (sp *Space) FilterByTags(tags ...int) *Space {
 	return sp.Filter(func(s Shape) bool {
 		return s.HasTags(tags...)
 	})
 }
 
 // FilterOutByTags filters a Space out, creating a new Space that has just the Shapes that don't have all of the specified tags.
-func (sp *Space) FilterOutByTags(tags ...string) *Space {
+func (sp *Space) FilterOutByTags(tags ...int) *Space {
 	return sp.Filter(func(s Shape) bool {
 		return !s.HasTags(tags...)
 	})
@@ -197,22 +197,22 @@ func (sp *Space) WouldBeColliding(other Shape, dx, dy float64) bool {
 
 // GetTags returns the tag list of the first Shape within the Space. If there are no Shapes within the Space,
 // it returns an empty array of string type.
-func (sp *Space) GetTags() []string {
+func (sp *Space) GetTags() []int {
 	if len(*sp) > 0 {
 		return (*sp)[0].GetTags()
 	}
-	return []string{}
+	return []int{}
 }
 
 // AddTags sets the provided tags on all Shapes contained within the Space.
-func (sp *Space) AddTags(tags ...string) {
+func (sp *Space) AddTags(tags ...int) {
 	for _, shape := range *sp {
 		shape.AddTags(tags...)
 	}
 }
 
 // RemoveTags removes the provided tags from all Shapes contained within the Space.
-func (sp *Space) RemoveTags(tags ...string) {
+func (sp *Space) RemoveTags(tags ...int) {
 	for _, shape := range *sp {
 		shape.RemoveTags(tags...)
 	}
@@ -226,7 +226,7 @@ func (sp *Space) ClearTags() {
 }
 
 // HasTags returns true if all of the Shapes contained within the Space have the tags specified.
-func (sp *Space) HasTags(tags ...string) bool {
+func (sp *Space) HasTags(tags ...int) bool {
 
 	for _, shape := range *sp {
 		if !shape.HasTags(tags...) {

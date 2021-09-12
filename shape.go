@@ -5,11 +5,11 @@ package resolv
 type Shape interface {
 	IsColliding(Shape) bool
 	WouldBeColliding(Shape, float64, float64) bool
-	GetTags() []string
+	GetTags() []int
 	ClearTags()
-	AddTags(...string)
-	RemoveTags(...string)
-	HasTags(...string) bool
+	AddTags(...int)
+	RemoveTags(...int)
+	HasTags(...int) bool
 	GetData() interface{}
 	SetData(interface{})
 	GetXY() (float64, float64)
@@ -21,25 +21,25 @@ type Shape interface {
 // position and tags. It is embedded in other Shapes.
 type BasicShape struct {
 	X, Y float64
-	tags []string
+	tags []int
 	Data interface{}
 }
 
 // GetTags returns a reference to the the string array representing the tags on the BasicShape.
-func (b *BasicShape) GetTags() []string {
+func (b *BasicShape) GetTags() []int {
 	return b.tags
 }
 
 // AddTags adds the specified tags to the BasicShape.
-func (b *BasicShape) AddTags(tags ...string) {
+func (b *BasicShape) AddTags(tags ...int) {
 	if b.tags == nil {
-		b.tags = []string{}
+		b.tags = []int{}
 	}
 	b.tags = append(b.tags, tags...)
 }
 
 // RemoveTags removes the specified tags from the BasicShape.
-func (b *BasicShape) RemoveTags(tags ...string) {
+func (b *BasicShape) RemoveTags(tags ...int) {
 
 	for _, t := range tags {
 
@@ -57,11 +57,11 @@ func (b *BasicShape) RemoveTags(tags ...string) {
 
 // ClearTags clears the tags active on the BasicShape.
 func (b *BasicShape) ClearTags() {
-	b.tags = []string{}
+	b.tags = []int{}
 }
 
 // HasTags returns true if the Shape has all of the tags provided.
-func (b *BasicShape) HasTags(tags ...string) bool {
+func (b *BasicShape) HasTags(tags ...int) bool {
 
 	hasTags := true
 
